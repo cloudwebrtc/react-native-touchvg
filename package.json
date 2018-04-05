@@ -1,0 +1,29 @@
+{
+  "name": "react-native-touchvg",
+  "version": "0.0.1",
+  "description": "TouchVG on React Native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudwebrtc/react-native-touchvg.git"
+  },
+  "keywords": [
+    "React",
+    "ReactNative",
+    "TouchVG",
+    "WhiteBoard",
+    "WebRTC"
+  ],
+  "author": "Duan wei <duanweiwei1982@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cloudwebrtc/react-native-touchvg/issues"
+  },
+  "homepage": "https://github.com/cloudwebrtc/react-native-touchvg#readme",
+  "peerDependencies": {
+    "react-native": ">=0.40.0"
+  }
+}
