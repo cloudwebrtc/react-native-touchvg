@@ -424,7 +424,7 @@ public abstract class BaseViewAdapter extends GiView implements OnDrawGestureLis
 
     public void onFirstRegen() {
         if (++mRegenCount == 1) {
-            (new Runnable() {
+            this.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Log.d(TAG, "onFirstRegen restore=" + (mSavedState != null));
@@ -441,7 +441,7 @@ public abstract class BaseViewAdapter extends GiView implements OnDrawGestureLis
                         mSavedState = null;
                     }
                 }
-            }).run();
+            }, 0);
         }
     }
 

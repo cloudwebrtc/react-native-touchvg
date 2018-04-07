@@ -53,18 +53,44 @@ class TouchVGView extends Component {
         NativeModules.TouchVGView.setBackground(filename);
     }
 
+    snapshot(){
+        return new Promise((pResolve, pReject) => {
+            NativeModules.TouchVGView.snapshot().then((response) =>{
+                //console.log("img: " + JSON.stringify(response));
+                pResolve(response);
+            });
+        });
+    }
+
     render() {
         return <RCTTouchVGView {...this.props} />;
     }
 }
 /**
- * 常用命令:
- * 1: select 选中笔迹， 2: erase 擦除控件，3: rect  矩形，4: square 正方形
- * 5: ellipse 圆或椭圆，6: circle2p，7: circle3p，8: diamond，9: line 直线
- * 10: rayline，11: beeline，2: dot 画点，13: polygon，14: quadrangle
- * 15: lines 直线，16: freelines，17: splines 自由画线，18: spline_mouse
- * 19: triangle 三角形，20: parallel，21: grid，22: arc3p，23: arc_cse
- * 24: arc_tan，25: sector，26: compass
+常用命令:
+select: 选择
+erase: 橡皮擦
+rect: 矩形
+square: 正方形
+ellipse: 椭圆
+circle2p: 圆
+circle3p: 三点画圆
+diamond: 菱形
+line: 线段
+rayline: 射线
+beeline: 无穷直线
+dot: 点
+polygon: 多边形
+quadrangle: 四边形
+lines: 折线
+splines: 随手画曲线
+spline_mouse: 样条曲线
+triangle: 三角形
+parallel: 平行四边形
+grid: 网格
+arc3p: 三点圆弧
+arc_cse: 圆心圆弧
+arc_tan: 切线圆弧
  */
 TouchVGView.propTypes = {
     command: PropTypes.string, /** 命令 */

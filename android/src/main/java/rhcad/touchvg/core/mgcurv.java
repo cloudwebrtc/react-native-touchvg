@@ -132,11 +132,11 @@ public class mgcurv {
   }
 
   public final static class SplineFlags {
-    public final static mgcurv.SplineFlags cubicTan1 = new mgcurv.SplineFlags("cubicTan1", 1);
-    public final static mgcurv.SplineFlags cubicArm1 = new mgcurv.SplineFlags("cubicArm1", 2);
-    public final static mgcurv.SplineFlags cubicTan2 = new mgcurv.SplineFlags("cubicTan2", 4);
-    public final static mgcurv.SplineFlags cubicArm2 = new mgcurv.SplineFlags("cubicArm2", 8);
-    public final static mgcurv.SplineFlags cubicLoop = new mgcurv.SplineFlags("cubicLoop", 16);
+    public final static SplineFlags cubicTan1 = new SplineFlags("cubicTan1", 1);
+    public final static SplineFlags cubicArm1 = new SplineFlags("cubicArm1", 2);
+    public final static SplineFlags cubicTan2 = new SplineFlags("cubicTan2", 4);
+    public final static SplineFlags cubicArm2 = new SplineFlags("cubicArm2", 8);
+    public final static SplineFlags cubicLoop = new SplineFlags("cubicLoop", 16);
 
     public final int swigValue() {
       return swigValue;

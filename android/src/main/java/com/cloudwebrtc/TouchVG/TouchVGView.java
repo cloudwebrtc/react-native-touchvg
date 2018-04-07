@@ -5,10 +5,13 @@ import rhcad.touchvg.IGraphView.OnSelectionChangedListener;
 import rhcad.touchvg.IViewHelper;
 import android.content.Context;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 public class TouchVGView extends ViewGroup implements OnSelectionChangedListener {
     private IViewHelper mHelper = null;
     private static final String PATH = "mnt/sdcard/WhiteBoard/";
+
+    FrameLayout layout;
 
     public TouchVGView(Context context, IViewHelper helper) {
         super(context);
@@ -16,6 +19,7 @@ public class TouchVGView extends ViewGroup implements OnSelectionChangedListener
         mHelper.createGraphView(context, this);
         mHelper.getGraphView().setOnSelectionChangedListener(this);
         mHelper.startUndoRecord(PATH + "undo");
+        mHelper.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.background_repeat));
     }
 
     public IViewHelper helper(){

@@ -49,6 +49,7 @@ public class StdGraphView extends View implements BaseGraphView {
     private int mDrawCount;
     private int mBkColor = Color.TRANSPARENT;
     private IGraphView mMainView;
+    protected Drawable mBackground;
 
     static {
         System.loadLibrary(TAG);
@@ -128,6 +129,15 @@ public class StdGraphView extends View implements BaseGraphView {
         });
     }
 
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (mBackground != null) {
+            mBackground.setBounds(left, top, right, bottom);
+        }
+    }
+
     @Override
     public boolean performClick() {
         return super.performClick();
@@ -143,11 +153,18 @@ public class StdGraphView extends View implements BaseGraphView {
         mDrawCount++;
         mCoreView.onSize(mViewAdapter, getWidth(), getHeight());
         if (mCachedBitmap != null) {
+            if (this.mBackground != null) {
+                this.mBackground.draw(canvas);
+            }
             drawShapes(canvas, mCanvasOnDraw, true);
             mViewAdapter.fireDynDrawEnded();
         } else if (!regen(false)) {
             // 首次onDraw，但视图太大无法创建缓存位图
-            canvas.drawColor(mBkColor);
+            if (this.mBackground != null) {
+                this.mBackground.draw(canvas);
+            } else {
+                canvas.drawColor(mBkColor);
+            }
             drawShapes(canvas, mCanvasOnDraw, true);
         }
     }
@@ -478,7 +495,7 @@ public class StdGraphView extends View implements BaseGraphView {
 
     @Override
     public void setBackgroundDrawable(Drawable background) {
-        Log.e(TAG, "Called unimplemented API: setBackgroundDrawable");
+        this.mBackground = background;
     }
 
     @Override
@@ -515,11 +532,14 @@ public class StdGraphView extends View implements BaseGraphView {
             }
         }
 
-        final Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        final Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888);
         final CanvasAdapter canvasAdapter = new CanvasAdapter(this, mImageCache);
-
+        Canvas canvas = new Canvas(bitmap);
         bitmap.eraseColor(transparent ? Color.TRANSPARENT : mBkColor);
-        int n = drawShapes(new Canvas(bitmap), canvasAdapter, false);
+        if (this.mBackground != null) {
+            this.mBackground.draw(canvas);
+        }
+        int n = drawShapes(canvas, canvasAdapter, false);
         Log.d(TAG, "snapshot: " + n);
         canvasAdapter.delete();
 
@@ -528,12 +548,15 @@ public class StdGraphView extends View implements BaseGraphView {
 
     @Override
     public Bitmap snapshot(int doc, int gs, boolean transparent) {
-        final Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        final Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Config.ARGB_8888);
         final CanvasAdapter canvasAdapter = new CanvasAdapter(this, mImageCache);
         final Longs docs = new Longs(doc, 0);
-
+        Canvas canvas = new Canvas(bitmap);
         bitmap.eraseColor(transparent ? Color.TRANSPARENT : mBkColor);
-        int n = drawShapes(docs, gs, null, new Canvas(bitmap), canvasAdapter, false);
+        if (this.mBackground != null) {
+            this.mBackground.draw(canvas);
+        }
+        int n = drawShapes(docs, gs, null, canvas, canvasAdapter, false);
         Log.d(TAG, "snapshot(doc): " + n);
         canvasAdapter.delete();
 

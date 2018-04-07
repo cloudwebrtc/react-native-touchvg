@@ -341,7 +341,7 @@ public class SFGraphView extends SurfaceView implements BaseGraphView {
                 } catch (InterruptedException e) {
                     Log.w(TAG, "notUseOnDraw", e);
                 }
-                new Runnable() {
+                mView.post(new Runnable() {
                     @Override
                     public void run() {
                         if (mView != null) {
@@ -349,7 +349,7 @@ public class SFGraphView extends SurfaceView implements BaseGraphView {
                             mView.setWillNotDraw(true);
                         }
                     }
-                }.run();
+                });
             }
         }
 

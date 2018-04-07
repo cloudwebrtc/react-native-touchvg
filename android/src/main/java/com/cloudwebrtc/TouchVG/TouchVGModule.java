@@ -1,8 +1,15 @@
 package com.cloudwebrtc.TouchVG;
 
+import android.graphics.Bitmap;
+import android.util.Base64;
+import java.io.ByteArrayOutputStream;
+
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 
 import rhcad.touchvg.IViewHelper;
 import rhcad.touchvg.view.internal.ResourceUtil;
@@ -17,7 +24,6 @@ public class TouchVGModule extends ReactContextBaseJavaModule {
 
     public TouchVGModule(ReactApplicationContext reactContext, IViewHelper helper) {
         super(reactContext);
-        ResourceUtil.setContextImages(reactContext);
         this.helper = helper;
     }
 
@@ -40,6 +46,16 @@ public class TouchVGModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void undo() {
         this.helper.undo();
+    }
+
+    @ReactMethod
+    public void snapshot(Promise promise) {
+        Bitmap image = this.helper.snapshot(false);
+        ByteArrayOutputStream imageStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, imageStream);
+        WritableMap response = Arguments.createMap();
+        response.putString("base64", Base64.encodeToString(imageStream.toByteArray(), Base64.DEFAULT));
+        promise.resolve(response);
     }
 
     @ReactMethod

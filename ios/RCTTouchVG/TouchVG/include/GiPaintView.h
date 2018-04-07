@@ -46,7 +46,7 @@ class GiViewAdapter;
 + (GiPaintView *)activeView;                //!< 得到当前激活的绘图视图
 - (void)activiteView;                       //!< 设置为当前活动视图，触摸时自动调用
 - (UIView *)dynamicShapeView:(BOOL)create;  //!< 动态图形视图
-
+- (void)setBackgroundColor:(UIColor *)color;//!< 设置背景颜色
 - (id<NSLocking>)locker;                    //!< 返回显示锁定对象
 
 #ifdef __cplusplus

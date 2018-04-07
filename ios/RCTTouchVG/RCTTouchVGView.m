@@ -74,6 +74,16 @@ RCT_CUSTOM_VIEW_PROPERTY(strokeWidth, NSString, TouchVGView)
     view.helper.strokeWidth = [cmd floatValue];
 }
 
+RCT_REMAP_METHOD(snapshot,
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject){
+    UIImage *img = [self.vgview.helper snapshot];
+    NSMutableDictionary *response = [[NSMutableDictionary alloc] init];
+    NSData *data = UIImageJPEGRepresentation(img, 0);
+    response[@"base64"] = [data base64EncodedStringWithOptions:0];
+    resolve(response);
+}
+
 RCT_EXPORT_METHOD(canUndo){
     NSLog(@"TouchVGView.canUndo()");
     [self.vgview.helper canUndo];
