@@ -19,7 +19,7 @@ public class TouchVGView extends ViewGroup implements OnSelectionChangedListener
         mHelper.createGraphView(context, this);
         mHelper.getGraphView().setOnSelectionChangedListener(this);
         mHelper.startUndoRecord(PATH + "undo");
-        mHelper.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.background_repeat));
+        //mHelper.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.background_repeat));
     }
 
     public IViewHelper helper(){
@@ -33,7 +33,7 @@ public class TouchVGView extends ViewGroup implements OnSelectionChangedListener
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int height = b - t;
         int width = r - l;
-        mHelper.getView().layout(l,t, r, b);
+        mHelper.getView().layout(l,t - 100, r, b - 100);
     }
 
     @Override

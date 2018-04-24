@@ -144,6 +144,9 @@ public interface IViewHelper {
     //! 设置线条颜色，忽略透明度分量，0 表示不画线条
     public void setLineColor(int argb);
 
+    //! 设置线条颜色，忽略透明度分量，0 表示不画线条
+    public void setLineColor(int r, int g, int b, int a);
+
     //! 返回线条透明度, 0-255
     public int getLineAlpha();
 

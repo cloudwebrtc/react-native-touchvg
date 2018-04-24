@@ -419,7 +419,7 @@ GiColor CGColorToGiColor(CGColorRef color);
 }
 
 - (UIImage *)snapshotCG {
-    float scale = [UIScreen mainScreen].scale;
+    float scale = 2;// [UIScreen mainScreen].scale;
     CGSize size = self.bounds.size;
     
     size.width *= scale;
@@ -436,7 +436,7 @@ GiColor CGColorToGiColor(CGColorRef color);
     CGContextScaleCTM(ctx, scale, - scale);
     
     if (self.window) {
-        [self.layer renderInContext:ctx];
+        [self.superview.layer renderInContext:ctx];
     } else {
         _adapter->renderInContext(ctx);
     }

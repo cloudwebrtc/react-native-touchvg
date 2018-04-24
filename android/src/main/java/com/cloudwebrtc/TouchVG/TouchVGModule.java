@@ -67,4 +67,9 @@ public class TouchVGModule extends ReactContextBaseJavaModule {
     public void eraseView() {
         this.helper.eraseView();
     }
+
+    @ReactMethod
+    public void setLineColor(int r, int g, int b, int a) {
+        this.helper.setLineColor(r,g,b,a);
+    }
 }

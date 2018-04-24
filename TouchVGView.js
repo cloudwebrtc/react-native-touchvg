@@ -39,6 +39,10 @@ class TouchVGView extends Component {
         return NativeModules.TouchVGView.canRedo();
     }
 
+    setLineColor(r,g,b, a){
+        NativeModules.TouchVGView.setLineColor(r,g,b,a);
+    }
+
     /**
      * 清空画布
      */
@@ -95,8 +99,8 @@ arc_tan: 切线圆弧
 TouchVGView.propTypes = {
     command: PropTypes.string, /** 命令 */
     lineWidth: PropTypes.number,/** 线宽 */
-    lineColor: PropTypes.number, /** 颜色 */
     strokeWidth: PropTypes.number, /** 线宽 */
+    backgroundImage: PropTypes.string,
 };
 
 export default TouchVGView;

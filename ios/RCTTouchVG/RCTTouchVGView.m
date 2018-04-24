@@ -13,6 +13,7 @@
 @interface TouchVGView : UIView <GiPaintViewDelegate>
 @property(nonatomic, strong)    GiPaintViewXIB  *paintView;
 @property(nonatomic, readonly)  GiViewHelper    *helper;
+@property(nonatomic, strong)  UIImageView  *backgroundImage;
 @end
 
 @implementation TouchVGView {
@@ -30,6 +31,13 @@
             [self.paintView addDelegate:self];
             [self.paintView.helper startUndoRecord:[NSString stringWithFormat:@"%@%@",NSTemporaryDirectory(), @"undo"]];
             [self addSubview:self.paintView];
+            
+            self.backgroundImage= [[UIImageView alloc] initWithFrame:CGRectMake(0,0,320,480)];
+            [self.backgroundImage setImage:[UIImage imageNamed:@"login.jpg"]];
+            
+            [self addSubview:self.backgroundImage];
+            [self sendSubviewToBack:self.backgroundImage];
+            [self bringSubviewToFront:self.paintView];
         }
     }
     return self;
@@ -43,6 +51,15 @@
 {
     [super layoutSubviews];
     self.paintView.frame = self.bounds;
+    self.backgroundImage.frame = self.bounds;
+    [self sendSubviewToBack:self.backgroundImage];
+    [self bringSubviewToFront:self.paintView];
+}
+
+-(void)setBkImage:(UIImage *)image
+{
+    [self.backgroundImage setImage:image];
+    [self layoutSubviews];
 }
 
 @end
@@ -82,6 +99,26 @@ RCT_REMAP_METHOD(snapshot,
     NSData *data = UIImageJPEGRepresentation(img, 0);
     response[@"base64"] = [data base64EncodedStringWithOptions:0];
     resolve(response);
+}
+
+RCT_REMAP_METHOD(setBackgroundImage,
+                 withImage:(NSString *)base64_image)
+{
+    NSData *decodedImageData   = [[NSData alloc] initWithBase64Encoding:base64_image];
+    UIImage *decodedImage      = [UIImage imageWithData:decodedImageData];
+    [self.vgview setBkImage:decodedImage];
+}
+
+RCT_REMAP_METHOD(setLineColor,
+                 withRed:(nonnull NSNumber *)r
+                 green:(nonnull NSNumber *)g
+                 blue:(nonnull NSNumber *)b
+                 alpha:(nonnull NSNumber *)a )
+{
+    self.vgview.helper.lineColor = [UIColor colorWithRed:[r floatValue] / 255.0f
+                                                   green:[g floatValue] / 255.0f
+                                                    blue:[b floatValue] / 255.0f
+                                                   alpha:[a floatValue] / 255.0f];
 }
 
 RCT_EXPORT_METHOD(canUndo){

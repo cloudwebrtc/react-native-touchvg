@@ -181,6 +181,13 @@ public class ContextHelper {
         }
     }
 
+    public static void setLineColor(ViewCreator vc, int r, int g, int b, int a) {
+        if (vc.isValid()) {
+            vc.coreView().getContext(true).setLineColor(r,g,b,a);
+            vc.coreView().setContext(a > 0 ? GiContext.kLineARGB : GiContext.kLineRGB);
+        }
+    }
+
     public static int getLineAlpha(ViewCreator vc) {
         return vc.isValid() ? vc.coreView().getContext(false).getLineColor().getA() : 0;
     }

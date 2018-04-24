@@ -41,6 +41,11 @@ public class RCTTouchVGView extends SimpleViewManager<TouchVGView> {
         view.helper().setLineWidth(w);
     }
 
+    @ReactProp(name = "strokeWidth")
+    public void setStrokeWidth(TouchVGView view, int w) {
+        view.helper().setStrokeWidth(w);
+    }
+
     @ReactProp(name = "lineColor")
     public void setLineColor(TouchVGView view, int c) {
         view.helper().setLineColor(c);

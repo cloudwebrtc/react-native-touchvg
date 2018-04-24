@@ -276,6 +276,11 @@ public class ViewHelperImpl implements IViewHelper {
     }
 
     @Override
+    public void setLineColor(int r,int g,int b,int a){
+        ContextHelper.setLineColor(mCreator, r, g, b, a);
+    }
+
+    @Override
     public int getLineAlpha() {
         return ContextHelper.getLineAlpha(mCreator);
     }

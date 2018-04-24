@@ -47,7 +47,7 @@ public class StdGraphView extends View implements BaseGraphView {
     private Bitmap mCachedBitmap;
     private Bitmap mRegenBitmap;
     private int mDrawCount;
-    private int mBkColor = Color.TRANSPARENT;
+    private int mBkColor = Color.WHITE;
     private IGraphView mMainView;
     protected Drawable mBackground;
 
@@ -197,8 +197,8 @@ public class StdGraphView extends View implements BaseGraphView {
 
         if (adapter.beginPaint(canvas)) {
             if (mCachedBitmap == null || !dyndraw) {
-                if (this.getBackground() != null) {
-                    this.getBackground().draw(canvas);
+                if (this.mBackground != null) {
+                    this.mBackground.draw(canvas);
                 }
                 n = mCoreView.drawAll(docs, gs, adapter);
             } else if (mCachedBitmap != null) {

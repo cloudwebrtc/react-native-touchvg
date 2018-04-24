@@ -92,9 +92,9 @@ void MgCmdManagerImpl::eraseWnd(const MgMotion* sender)
         }
         if (n > 0) {
             sender->view->regenAll(true);
-            char buf[31];
-            MgLocalized::formatString(buf, sizeof(buf), sender->view, "@shape_n_deleted", n);
-            sender->view->showMessage(buf);
+            //char buf[31];
+            //MgLocalized::formatString(buf, sizeof(buf), sender->view, "@shape_n_deleted", n);
+            //sender->view->showMessage(buf);
         }
     }
 }
